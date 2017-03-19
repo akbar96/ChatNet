@@ -25,6 +25,16 @@ public class Server extends JFrame{
 	private ServerSocket server;	//The server
 	private Socket connection; //Contains connections via sockets
 	
+	//Constructs the GUI for Server
+	public Server(){
+		super("ChatNet");	//Naming the service as ChatNet
+		userText = new JTextField();	//Initiates a chat feild
+		userText.setEditable(false);	//Set the boolean for chatbox to false. This is the case initially, 
+										//this prevents the user form typing when they are not connected to
+										//anyone
+		
+	}
+	
 	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
 	static int i=0;	//Populates the array
 	static String people; //Concatenated string which is filled up with the contents of the array

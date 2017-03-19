@@ -22,7 +22,7 @@ public class ClientThread extends Thread {
 			
 		 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);  //Writes an output to the socket
 	     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));//Reads any input from the socket
-	            	
+	     showMessage("\n Streams are now setup! \n");       	
          String inputLine;
 
          

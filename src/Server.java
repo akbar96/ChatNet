@@ -57,13 +57,13 @@ public class Server extends JFrame{
 	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
 	static int i=0;	//Populates the array
 	static String people; //Concatenated string which is filled up with the contents of the array
-    public static void main(String[] args) throws IOException {
+    public void startRunning() throws IOException {
 
-        if (args.length != 1) {
-            System.err.println("Usage: java EchoServer <port number>");
-            System.exit(1);
-        }
-        
+//        if (args.length != 1) {
+//            System.err.println("Usage: java EchoServer <port number>");
+//            System.exit(1);
+//        }
+//        No longer need this, the port number will always be 21910
         int portNumber = 21910;
         /*
          * As soon as we establish a new socket, we move on to putting the system in a constant search for
@@ -72,7 +72,7 @@ public class Server extends JFrame{
          */
         try {
         	
-            ServerSocket server = new ServerSocket(21910, 100); //The port number is set to 100 people and at
+            ServerSocket server = new ServerSocket(portNumber, 100); //The port number is set to 21910 and at
             													// one point of time only 100 people can wait
             													// at the port
             

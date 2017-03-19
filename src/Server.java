@@ -4,7 +4,7 @@
  * at a server and provide the clients IP address and listening port numbers
  * of the peers to establish TCP connections with other peers and enabling
  * them to chat with each other.
- * Certain components of the program have been adopted from thenewboston tutorials
+ * Certain components of the program have been adopted from thenewboston tutorials.
  * */
 
 

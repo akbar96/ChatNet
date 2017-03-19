@@ -44,7 +44,7 @@ public class Server extends JFrame{
 					
 				}
 		);
-		add(userText, BorderLayout.NORTH); //Adding the field in thw window
+		add(userText, BorderLayout.NORTH); //Adding the field in the window
 		chatWindow = new JTextArea();	//creation of Main window with all messages displayed in this window
 		add(new JScrollPane(chatWindow));//The main window gets added to the screen using this command
 		setSize(400,300);	//Set the size of the window
@@ -65,26 +65,28 @@ public class Server extends JFrame{
 //        }
 //        No longer need this, the port number will always be 21910
         int portNumber = 21910;
+        
         /*
          * As soon as we establish a new socket, we move on to putting the system in a constant search for
          * potential connections. The while true loop runs for ever and as long as the server is alive, it
          * will keep looking for clients wanting to connect
          */
+        
         try {
         	
             ServerSocket server = new ServerSocket(portNumber, 100); //The port number is set to 21910 and at
             													// one point of time only 100 people can wait
             													// at the port
             
-            while(true){ //infinite loop
+            while(true){ 										//infinite loop which always checks for connections
             	try{
             		Socket connection = server.accept(); //The connection gets accepted here
             		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
             													by calling the class CLient Thread which caters to new 
             													connections and gives them an id.*/
             	}
-            	catch (Exception e){
-            		System.out.println("An error occurred"); //Looks for errors
+            	catch (EOFException eofException){
+            		showMessage("\n Server ended the connection! "); //Looks for errors
             	}
             }
             

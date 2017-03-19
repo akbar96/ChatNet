@@ -77,16 +77,18 @@ public class Server extends JFrame{
             ServerSocket server = new ServerSocket(portNumber, 100); //The port number is set to 21910 and at
             													// one point of time only 100 people can wait
             													// at the port
-            
+            showMessage("Waiting for someone to connect... \n");
             while(true){ 										//infinite loop which always checks for connections
             	try{
-            		Socket connection = server.accept(); //The connection gets accepted here
+            		Socket connection = server.accept();		//The connection gets accepted here
             		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
             													by calling the class CLient Thread which caters to new 
             													connections and gives them an id.*/
             	}
             	catch (EOFException eofException){
             		showMessage("\n Server ended the connection! "); //Looks for errors
+            	}finally{
+            		closeConnection();
             	}
             }
             

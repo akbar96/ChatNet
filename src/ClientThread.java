@@ -16,7 +16,7 @@ public class ClientThread extends Thread {
 	}
 	
 	public void run(){
-		showMessage("Connected to a new Client \n");
+		System.out.println("Connected to a new Client");
 		while(true){  //This allows us to continuously listen on the socket for any new requests from the client.
 		try{
 			

@@ -39,51 +39,58 @@ public class Server extends JFrame{
 					 												method*/
 						sendMessage(event.getActionCommand());	//passing in the text typed in to the text field using.getActionCommand
 						userText.setText("");//This sets the user text field to nothing after the message has been sent.
+						
 					}
 					
 				}
 		);
+		add(userText, BorderLayout.NORTH); //Adding the field in thw window
+		chatWindow = new JTextArea();	//creation of Main window with all messages displayed in this window
+		add(new JScrollPane(chatWindow));//The main window gets added to the screen using this command
+		setSize(400,300);	//Set the size of the window
+		setVisible(true);	//Sets the window to be visible
+		
 				
 		
 	}
 	
-	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
-	static int i=0;	//Populates the array
-	static String people; //Concatenated string which is filled up with the contents of the array
-    public static void main(String[] args) throws IOException {
-
-        if (args.length != 1) {
-            System.err.println("Usage: java EchoServer <port number>");
-            System.exit(1);
-        }
-        
-        int portNumber = Integer.parseInt(args[0]);
-        /*
-         * As soon as we establish a new socket, we move on to putting the system in a constant search for
-         * potential connections. The while true loop runs for ever and as long as the server is alive, it
-         * will keep looking for clients wanting to connect
-         */
-        try {
-        	
-            ServerSocket server = new ServerSocket(Integer.parseInt(args[0]));
-            
-            while(true){ //infinite loop
-            	try{
-            		Socket connection = server.accept(); //The connection gets accepted here
-            		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
-            													by calling the class CLient Thread which caters to new 
-            													connections and gives them an id.*/
-            	}
-            	catch (Exception e){
-            		System.out.println("An error occurred"); //Looks for errors
-            	}
-            }
-            
-        } catch (Exception e) {
-            System.out.println("Exception caught when trying to listen on port "
-                + portNumber + " or listening for a connection");
-            System.out.println(e.getMessage());
-        }
-    }
+//	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
+//	static int i=0;	//Populates the array
+//	static String people; //Concatenated string which is filled up with the contents of the array
+//    public static void main(String[] args) throws IOException {
+//
+//        if (args.length != 1) {
+//            System.err.println("Usage: java EchoServer <port number>");
+//            System.exit(1);
+//        }
+//        
+//        int portNumber = Integer.parseInt(args[0]);
+//        /*
+//         * As soon as we establish a new socket, we move on to putting the system in a constant search for
+//         * potential connections. The while true loop runs for ever and as long as the server is alive, it
+//         * will keep looking for clients wanting to connect
+//         */
+//        try {
+//        	
+//            ServerSocket server = new ServerSocket(Integer.parseInt(args[0]));
+//            
+//            while(true){ //infinite loop
+//            	try{
+//            		Socket connection = server.accept(); //The connection gets accepted here
+//            		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
+//            													by calling the class CLient Thread which caters to new 
+//            													connections and gives them an id.*/
+//            	}
+//            	catch (Exception e){
+//            		System.out.println("An error occurred"); //Looks for errors
+//            	}
+//            }
+//            
+//        } catch (Exception e) {
+//            System.out.println("Exception caught when trying to listen on port "
+//                + portNumber + " or listening for a connection");
+//            System.out.println(e.getMessage());
+//        }
+//    }
 	
 }

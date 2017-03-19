@@ -32,6 +32,18 @@ public class Server extends JFrame{
 		userText.setEditable(false);	//Set the boolean for chatbox to false. This is the case initially, 
 										//this prevents the user form typing when they are not connected to
 										//anyone
+		userText.addActionListener(		//Adding an action listener
+				new ActionListener(){	//As soon as a new action is detected
+					public void actionPerformed(ActionEvent event){ /*This method is enabled and it passes
+					 												this action as event to the sendMessage
+					 												method*/
+						sendMessage(event.getActionCommand());	//passing in the text typed in to the text field using.getActionCommand
+						userText.setText("");//This sets the user text field to nothing after the message has been sent.
+					}
+					
+				}
+		);
+				
 		
 	}
 	

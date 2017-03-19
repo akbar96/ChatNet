@@ -20,8 +20,8 @@ public class Server extends JFrame{
 	private JTextField userText; 	//The field where the user can input the text
 	private JTextArea chatWindow;	//The JFram window where conversations among the clients and servers
 									// can be read.
-	private ObjectOutputStream output; // Messages going out from the user
-	private ObjectInputStream input;	//Messages being received by the user
+//	private ObjectOutputStream output; // Messages going out from the user		Not useful in this program.
+//	private ObjectInputStream input;	//Messages being received by the user	A different io stream is used
 	private ServerSocket server;	//The server
 	private Socket connection; //Contains connections via sockets
 	
@@ -81,6 +81,7 @@ public class Server extends JFrame{
             while(true){ 										//infinite loop which always checks for connections
             	try{
             		Socket connection = server.accept();		//The connection gets accepted here
+            		showMessage("Now conencted to "+ connection.getInetAddress().getHostName());
             		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
             													by calling the class CLient Thread which caters to new 
             													connections and gives them an id.*/

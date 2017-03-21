@@ -1,9 +1,9 @@
 
 import java.io.*;
 import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+//import java.awt.*;			To be used for GUI component
+//import java.awt.event.*;
+//import javax.swing.*;
 
 public class ClientThread extends Thread {
 	

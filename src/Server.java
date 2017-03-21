@@ -57,7 +57,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
 	static int i=0;	//Populates the array
 	static String people; //Concatenated string which is filled up with the contents of the array
-    public void startRunning() throws IOException {
+    public static void main(String[] args) throws IOException {
 
 //        if (args.length != 1) {
 //            System.err.println("Usage: java EchoServer <port number>");

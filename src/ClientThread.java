@@ -1,8 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
+
+import java.io.*;
+import java.net.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class ClientThread extends Thread {
 	
@@ -23,8 +24,8 @@ public class ClientThread extends Thread {
 			
 		 PrintWriter out = new PrintWriter(connection.getOutputStream(), true);  //Writes an output to the socket
 	     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));//Reads any input from the socket
-	     showMessage("\n Streams are now setup! \n");       	
-         ableToType(true);	//Allows the input fields to be editable 
+	     out.println("\n Streams are now setup! \n");       	
+//    This is removed for now since the GUI implementation isn't the one we are proceeding with     ableToType(true);	//Allows the input fields to be editable 
 	     String inputLine;	//Contains the messages received by the user to the server.
          
          while ((inputLine = in.readLine()) != null) { //ensures that there some input to compute
@@ -47,7 +48,7 @@ public class ClientThread extends Thread {
          	
         	 }else if(inputLine.equals("LIST")){				//Checks if the command is list
          		
-         		//out.println("Message recieved: LIST");
+         		//out.println("Message received: LIST");
          		String message = "";						//Initializes the string message as empty
          		
          		for(int a = 0; a < 1000; a++){
@@ -72,8 +73,8 @@ public class ClientThread extends Thread {
          				}
          				
          			}
-         		showMessage("\n Closing Connections... \n");	//Displays the message that the connections are being closed.
-         		ableToType(false);						//Takes away the ability to type from the user
+         		out.println("\n Closing Connections... \n");	//Displays the message that the connections are being closed.
+         		//Same reason as above 	ableToType(false);						//Takes away the ability to type from the user
          		try{
          			out.close();						//Closes the output stream
          			in.close();							//Closes the input stream
@@ -88,13 +89,13 @@ public class ClientThread extends Thread {
          		out.println("Command Invalid. Please try again");//Addresses all other commands besides JION, LIST, and LEAVE
          	}
          }
-         private void sendMessage(String message){
-        	 try{
-        		 
-        	 }catch(IOException ioException){
-        		 
-        	 }
-         }
+//         private void sendMessage(String message){		Not certain if this is the method to be used
+//        	 try{
+//        		 
+//        	 }catch(IOException ioException){
+//        		 
+//        	 }
+//         }
         
 		}catch(Exception e){//LOoks for exception
         	 

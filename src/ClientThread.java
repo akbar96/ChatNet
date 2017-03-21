@@ -62,8 +62,6 @@ public class ClientThread extends Thread {
          				//System.out.println(Server.playersList[a]);
          				message = message.concat(Server.playersList[a]);//Gets the list of players
          				message = message.concat(", ");
-         			}else if(Server.playersList[a] == null){
-         				message = ("No one else has registered at the moment.");
          			}
          		}
          		out.println(message);			//List of live players is printed

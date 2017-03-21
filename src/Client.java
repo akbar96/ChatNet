@@ -35,14 +35,14 @@ import java.net.*;
 public class Client {
     public static void main(String[] args) throws IOException {
         
-        if (args.length != 2) {
+        if (args.length != 1) {					//Just ensures that the hostname has been passed on to this class as a parameter
             System.err.println(
-                "Usage: java EchoClient <host name> <port number>");
+                "Usage: java EchoClient <host name>");
             System.exit(1);
         }
 
         String hostName = args[0];
-        int portNumber = Integer.parseInt(args[1]);
+        int portNumber = 21910;			//We will always be using this as the portnumber as per requirements.
 
         try (
             Socket echoSocket = new Socket(hostName, portNumber);

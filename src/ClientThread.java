@@ -78,14 +78,16 @@ public class ClientThread extends Thread {
          				}
          				
          			}
+         		
          		out.println("Closing Connections...");	//Displays the message that the connections are being closed.
+         		out.println("You are no longer connected to Server\nStreams closed.\nConnection closed\nGoodbye!");
          		//Same reason as above 	ableToType(false);						//Takes away the ability to type from the user
          		try{
          			out.close();						//Closes the output stream
          			in.close();							//Closes the input stream
          			connection.close();					//Closes the socket
-         			System.out.println("You have left");
-         			break;//Lets the player know they have left
+         			System.out.println("Client has Left");//Lets the player know they have left
+         			break;
          		}catch(IOException ioException){
          			
          		}

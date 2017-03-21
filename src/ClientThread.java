@@ -62,6 +62,8 @@ public class ClientThread extends Thread {
          				//System.out.println(Server.playersList[a]);
          				message = message.concat(Server.playersList[a]);//Gets the list of players
          				message = message.concat(", ");
+         			}else{
+         				message = ("No one else has registered at the moment");
          			}
          		}
          		out.println(message);			//List of live players is printed
@@ -84,10 +86,11 @@ public class ClientThread extends Thread {
          			out.close();						//Closes the output stream
          			in.close();							//Closes the input stream
          			connection.close();					//Closes the socket
+         			out.println("You have left");			//Lets the player know they have left
          		}catch(IOException ioException){
-         			ioException.printStackTrace();
+         			
          		}
-         		out.println("You have left");			//Lets the player know they have left
+         		
          		
          	}else{
          		

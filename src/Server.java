@@ -11,14 +11,14 @@
 
 import java.io.*;
 import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-public class Server extends JFrame{
+//import java.awt.*;				Not to be used in this version
+//import java.awt.event.*;			Not to be used in this version
+//import javax.swing.*;				Not to be used in this version
+//
+public class Server{		//Extends JFrame has been removed since it is Not to be used in this version
 	
-	private JTextField userText; 	//The field where the user can input the text
-	private JTextArea chatWindow;	//The JFram window where conversations among the clients and servers
+//	private JTextField userText; 	//The field where the user can input the text
+//	private JTextArea chatWindow;	//The JFram window where conversations among the clients and servers
 									// can be read.
 //	private ObjectOutputStream output; // Messages going out from the user		Not useful in this program.
 //	private ObjectInputStream input;	//Messages being received by the user	A different io stream is used

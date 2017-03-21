@@ -24,7 +24,7 @@ public class ClientThread extends Thread {
 			
 		 PrintWriter out = new PrintWriter(connection.getOutputStream(), true);  //Writes an output to the socket
 	     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));//Reads any input from the socket
-	     out.println("\n Streams are now setup! \n");       	
+	     //out.println("\n Streams are now setup! \n");			Not to be used in this version       	
 //    This is removed for now since the GUI implementation isn't the one we are proceeding with     ableToType(true);	//Allows the input fields to be editable 
 	     String inputLine;	//Contains the messages received by the user to the server.
          
@@ -34,12 +34,17 @@ public class ClientThread extends Thread {
          		
         		 if(joined == false){ //Makes sure that the same client is not joining twice
 	         		
-        			 out.println("Enter your numeric ID: "); //Asks client for an id to address them with. This id must be numerical
-	         		Server.playersList[Server.i] = in.readLine();//id is served in the array of players
-	         		out.println("Your id is: " + Server.playersList[Server.i]);//ID is confirmed to the player
-	         		id = Server.playersList[Server.i];//stored in the variable id
-	         		Server.i = Server.i + 1;//This statement increments the counter and sets it up for the next client
-	         		joined = true;//Once the client has joins, the boolean joined is set to true so that they cannot join again
+        			out.println("Enter your numeric ID: "); //Asks client for an id to address them with. This id must be numerical
+	         		
+        			Server.playersList[Server.i] = in.readLine();//id is served in the array of players
+	         		
+        			out.println("Your id is: " + Server.playersList[Server.i]);//ID is confirmed to the player
+	         		
+        			id = Server.playersList[Server.i];//stored in the variable id
+	         		
+        			Server.i = Server.i + 1;//This statement increments the counter and sets it up for the next client
+	         		
+        			joined = true;//Once the client has joins, the boolean joined is set to true so that they cannot join again
          		
         		 }else{
          			
@@ -73,7 +78,7 @@ public class ClientThread extends Thread {
          				}
          				
          			}
-         		out.println("\n Closing Connections... \n");	//Displays the message that the connections are being closed.
+         		out.println("Closing Connections...");	//Displays the message that the connections are being closed.
          		//Same reason as above 	ableToType(false);						//Takes away the ability to type from the user
          		try{
          			out.close();						//Closes the output stream

@@ -48,12 +48,13 @@ public class Client {
             Socket echoSocket = new Socket(hostName, portNumber);
             PrintWriter out =
                 new PrintWriter(echoSocket.getOutputStream(), true);
+        		
             BufferedReader in =
-                new BufferedReader(
-                    new InputStreamReader(echoSocket.getInputStream()));
+                new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+        		
             BufferedReader stdIn =
-                new BufferedReader(
-                    new InputStreamReader(System.in))
+                new BufferedReader(new InputStreamReader(System.in))
+                
                //**************All the code above was provided*********************
         ) {
             String userInput;

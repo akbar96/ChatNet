@@ -11,6 +11,7 @@
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 //import java.awt.*;				Not to be used in this version
 //import java.awt.event.*;			Not to be used in this version
 //import javax.swing.*;				Not to be used in this version
@@ -80,7 +81,10 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
             System.out.println("Waiting for someone to connect... \n");
             while(true){ 										//infinite loop which always checks for connections
             	try{
+            		ArrayList<DataOutputStream> clients = new ArrayList<DataOutputStream>();
             		Socket connection = server.accept();		//The connection gets accepted here
+            		DataOutputStream os = new DataOutputStream(connection.getOutputStream());
+            		clients.add(os);
             		System.out.println("Now conencted to "+ connection.getInetAddress().getHostName());
             		new ClientThread(connection).start();		/* Once the connection is accepted, the server starts a thread
             													by calling the class CLient Thread which caters to new 

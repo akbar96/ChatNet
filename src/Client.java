@@ -59,7 +59,7 @@ public class Client {
         ) {
             String userInput;
             System.out.println("Connection Established: Now connected to "+ hostName);//Returns a confirmation that a connection has been established
-            System.out.println("Choose your command: JOIN/LIST/LEAVE (Case sensitive)");//Lists the three possible commands
+            System.out.println("Choose your command: JOIN/LIST/LEAVE/CHAT (Case sensitive)");//Lists the three possible commands
 
             while ((userInput = stdIn.readLine()) != null) { //Makes sure input from console is not empty
                 out.println(userInput);			//Sends the input from user to the socket

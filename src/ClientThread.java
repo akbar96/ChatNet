@@ -12,6 +12,8 @@ public class ClientThread extends Thread {
 	 					This helps in maintaining the list when the client wants to leave*/
 	boolean joined = false;/*This helps establish whether or not the client has already joined the server and limits
 	 						the same client from joining under multiple id's without leaving*/
+	boolean full = false; /*This is the chat room. In this case we only deal with one chat 
+							room that may consist of only 2 players at a time */
 	
 	public ClientThread(Socket socket){
 		connection =  socket;
@@ -24,8 +26,8 @@ public class ClientThread extends Thread {
 			
 		 PrintWriter out = new PrintWriter(connection.getOutputStream(), true);  //Writes an output to the socket
 	     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));//Reads any input from the socket
-	     //out.println("\n Streams are now setup! \n");			Not to be used in this version       	
-//    This is removed for now since the GUI implementation isn't the one we are proceeding with     ableToType(true);	//Allows the input fields to be editable 
+	     							//out.println("\n Streams are now setup! \n");			Not to be used in this version       	
+	     							//    This is removed for now since the GUI implementation isn't the one we are proceeding with     ableToType(true);	//Allows the input fields to be editable 
 	     String inputLine;	//Contains the messages received by the user to the server.
          
          while ((inputLine = in.readLine()) != null) { //ensures that there some input to compute
@@ -92,6 +94,13 @@ public class ClientThread extends Thread {
          			
          		}
          		
+         	}else if(inputLine.equals("CHAT")){
+         		if(Server.playersList == null){
+         			out.println("There is no one connected to the Server. Try again later when someone else is connected.");
+         		}
+         		else if(Server.playersList != null && full == false){
+         			out.println("The chat engine should be executed now...");
+         		}
          		
          	}else{
          		

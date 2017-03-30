@@ -54,7 +54,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 //				
 //		
 //	}
-	
+	public static ArrayList<DataOutputStream> clients = new ArrayList<DataOutputStream>();
 	static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
 	static int i=0;	//Populates the array
 	static String people; //Concatenated string which is filled up with the contents of the array
@@ -81,7 +81,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
             System.out.println("Waiting for someone to connect... \n");
             while(true){ 										//infinite loop which always checks for connections
             	try{
-            		ArrayList<DataOutputStream> clients = new ArrayList<DataOutputStream>();
+            		clients = new ArrayList<DataOutputStream>();
             		Socket connection = server.accept();		//The connection gets accepted here
             		DataOutputStream os = new DataOutputStream(connection.getOutputStream());
             		clients.add(os);

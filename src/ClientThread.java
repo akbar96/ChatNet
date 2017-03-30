@@ -1,22 +1,22 @@
 
 import java.io.*;
 import java.net.*;
-//import java.awt.*;			To be used for GUI component
-//import java.awt.event.*;
-//import javax.swing.*;
+
 
 public class ClientThread extends Thread {
 	
-	Socket connection; //Variable for the socket and portNumber
-	String id;			/*Each new client is assigned an id of their choice and it is stored locally for the client
-	 					This helps in maintaining the list when the client wants to leave*/
-	boolean joined = false;/*This helps establish whether or not the client has already joined the server and limits
-	 						the same client from joining under multiple id's without leaving*/
-	boolean full = false; /*This is the chat room. In this case we only deal with one chat 
-							room that may consist of only 2 players at a time */
+	Socket connection;				 //Variable for the socket and portNumber
+	String id;							/*Each new client is assigned an id of their choice and it is stored locally for the client
+	 									This helps in maintaining the list when the client wants to leave*/
+	Server server;
+	boolean joined = false;			/*This helps establish whether or not the client has already joined the server and limits
+		 								the same client from joining under multiple id's without leaving*/
+	boolean full = false; 				/*This is the chat room. In this case we only deal with one chat 
+										room that may consist of only 2 players at a time */
 	
-	public ClientThread(Socket socket){
-		connection =  socket;
+	public ClientThread(Socket socket, Server server){
+		this.connection =  socket;
+		this.server = server;
 	}
 	
 	public void run(){

@@ -14,7 +14,8 @@ public class ClientThread extends Thread {
 	public String hostname;
 	public int port;
 	public User user = new User();
-	
+	PrintWriter out;
+	BufferedReader in;
 
 	public ClientThread(Socket socket, Server server){
 		
@@ -33,8 +34,8 @@ public class ClientThread extends Thread {
 		
 		try{
 			
-		 PrintWriter out = new PrintWriter(connection.getOutputStream(), true);  //Writes an output to the socket
-	     BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));//Reads any input from the socket
+		 out = new PrintWriter(connection.getOutputStream(), true);  //Writes an output to the socket
+	     in = new BufferedReader(new InputStreamReader(connection.getInputStream()));//Reads any input from the socket
 	     											//out.println("\n Streams are now setup! \n");			Not to be used in this version       	
 	     
 	     user.ipAddress = in.readLine();
@@ -62,7 +63,7 @@ public class ClientThread extends Thread {
 	        			 out.println("You have already joined"); 		//If the player tries to join without leaving, they are reminded that they are already connected
 	         		}
 	         	
-	        	 }else if(inputLine.equals("LIST")){					//Checks if the command is list
+	        	 }else if(inputLine.toUpperCase().equals("LIST")){					//Checks if the command is list
 	         		
 	         		//out.println("Message received: LIST");
 	         		int numThreads = 0;								//Initialized the number of threads to 0
@@ -70,45 +71,66 @@ public class ClientThread extends Thread {
 	         		for(int a = 0; a < server.activeThrd.size(); a++){
 	         			
 	         			if(server.activeThrd.get(a).joined == TRUE){				//Avoids null entries from being printed
-	         				message = message.concat(Server.playersList[a]);//Gets the list of players
-	         				message = message.concat(", ");
+	         				out.println(server.activeThrd.get(a).user.username);
+	         				numThreads++;
 	         			}
 	         		}
-	         		out.println(message);								//List of live players is printed
 	         		
-	         	}else if(inputLine.equals("LEAVE")){					//Checks if the player wants to leave
+	         		if(numThreads==0){out.println("No active users at this moment");
 	         		
-	         		for(int a = 0; a < 1000; a++){
-	         				
-	         			if(Server.playersList[a] == id){				//Looks for the player's id in the array playersList
-	         					Server.playersList[a] = null;			//Once found, that element is set to null
-	         					joined = false;							//The player's joined boolean is changed back to false allowing them join agian
-	         					
-	         				break;										//Stops from marking other players with the same id as null/left
-	         				}
-	         				
-	         			}
+	         	}else if(inputLine.toUpperCase().equals("LEAVE")){					//Checks if the player wants to leave
 	         		
-	         		out.println("Closing Connections...");				//Displays the message that the connections are being closed.
-	         		out.println("You are no longer connected to Server \nStreams closed. \nConnection closed \nGoodbye!");
-	         		
-	         		try{
-	         			out.close();						//Closes the output stream
-	         			in.close();							//Closes the input stream
-	         			connection.close();					//Closes the socket
-	         			System.out.println("Client has Left");//Lets the player know they have left
-	         			break;
-	         		}catch(IOException ioException){
+	         		if(joined){
 	         			
+	         			
+	         			server.removeByName(name);
+	         			joined = false;
+	         			user.username = "";
+	         			out.flush();
+	         			out.println("You have now left");
+	         		
+	         		
+		         		out.println("Closing Connections...");				//Displays the message that the connections are being closed.
+		         		out.println("You are no longer connected to Server \nStreams closed. \nConnection closed \nGoodbye!");
+		         		
+		         		try{
+		         			out.close();						//Closes the output stream
+		         			in.close();							//Closes the input stream
+		         			connection.close();					//Closes the socket
+		         			System.out.println("Client has Left");//Lets the player know they have left
+		         			break;
+		         			
+		         			
+		         		}catch(IOException ioException){
+		         		
+		         		}	
 	         		}
 	         		
-	         	}else if(inputLine.equals("CHAT")){
-	         		if(Server.playersList == null){
-	         			out.println("There is no one connected to the Server. Try again later when someone else is connected.");
+	         	}else if(inputLine.toUpperCase().equals("CHAT")){
+	         		out.println("Who?");
+	         		String requestedUser = in.readLine();
+	         		
+	         		if(requestedUser.equals(user.username)){
+	         			out.println("No, do not talk with yourself. Just don't.");
+	         		}else if(server.nameExists(requestedUser) && server.getServerThreadByUserName(requestedUser).joined){
+	         			out.println("#init");
+	         			out.println("Setting up a connection with "+requestedUser);
+	         			server.getServerThreadByUserName(requestedUser).sendMessage("#init");
+	         			server.getServerThreadByUserName(requestedUser).sendMessage(user.hostname);
+	         			server.getServerThreadByUserName(requestedUser).sendMessage(Integer.toString(user.portNumber));
+	         			server.getServerThreadByUserName(requestedUser).sendMessage("Connection has been established with "+user.username);
+	         			
+	         			joined = false;
+	         			server.getServerThreadByUserName(requestedUser).joined = false;
+	         			
+	         			server.removeByName(user.username);
+	         			server.removeByName(requestedUser);
+	         			
+	         		}else{
+	         			out.println(requestedUser + "is not available to chat");
 	         		}
-	         		else if(Server.playersList != null && full == false){
-	         			out.println("The chat engine should be executed now...");
-	         		}
+	         		
+	         	}
 	         		
 	         	}else{
 	         		
@@ -127,6 +149,10 @@ public class ClientThread extends Thread {
         	 
          }
 		}
+	
+	public void sendMessage(String message){
+		out.println(message);
+	}
 	
 	}
 

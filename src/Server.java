@@ -117,7 +117,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
      public ServerThread getServerThreadByUserName(String name){
     	 for(int i = 0; i<activeThrd.size(); i++){
     		 if(activeThrd.get(i).user.username.equals(name)){
-    			 return activethrd.get(i);
+    			 return activeThrd.get(i);
     		 }
     	 }
     	 return null;
@@ -135,7 +135,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
      public void removeByName(String username){
     	 for(int i = 0; i< activeThrd.size();i++){
     		 if(activeThrd.get(i).user.username.equals(username)){
-    			 activethrd.remove(i);
+    			 activeThrd.remove(i);
     			 return;
     		 }
     	 }

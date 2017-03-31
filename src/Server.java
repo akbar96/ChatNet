@@ -56,6 +56,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 //	}
 	
 	String serverName;
+	int portNumber;
 	public ArrayList<User> clients = new ArrayList<User>();
 	public ArrayList<ServerThread> activeThrd = new ArrayList<ServerThread>(); 
 						//static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
@@ -71,7 +72,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 						//            System.exit(1);
 						//        }
 						//        No longer need this, the port number will always be 21910
-        int portNumber = 21910;
+
         Server server = new Server("Host", 21910);
     }
 				        /*
@@ -81,16 +82,62 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 				         */
      public Server(String serverName, int portNumber){   
     	 
-    	 this.serverName = serverName;
+    	this.serverName = serverName;
+    	this.portNumber = portNumber;
+    	
         try {
         	
-            ServerSocket server = new ServerSocket(portNumber, 100); 			//The port number is set to 21910 and at
+            serverSocket = new ServerSocket(portNumber); 						//The port number is set to 21910 and at
 				            													// one point of time only 100 people can wait
 				            													// at the port
-            
+
             System.out.println("Waiting for someone to connect... \n");
             while(true){ 										//infinite loop which always checks for connections
+            	
+                clientSocket = serverSocket.accept();
+            	ServerThread newThread = new ServerThread(clientSocket, this);
+                newThread.start();
+                activeThrd.add(newThread);
+            	
             }
+        }catch(IOException ioexception){
+        	ioexception.printStackTrace();
         }
+     }
+     
+     public User getUserByName(String name){
+    	 for(int i = 0; i<activeThrd.size(); i++){
+    		 if(activeThrd.get(i).user.username.equals(name)){
+    			 return activeThrd.get(i).user;
+    		 }
+    	 }
+    	 return null;
+     }
+     
+     public ServerThread getServerThreadByUserName(String name){
+    	 for(int i = 0; i<activeThrd.size(); i++){
+    		 if(activeThrd.get(i).user.username.equals(name)){
+    			 return activethrd.get(i);
+    		 }
+    	 }
+    	 return null;
+     }
+     
+     public boolean nameExists(String username){
+    	 for(int i=0;i<activeThrd.size();i++){
+    		 if(activeThrd.get(i).user.username.equals(username)){
+    			 return true:
+    		 }
+    	 }
+    	 return false;
+     }
+     
+     public void removeByName(String username){
+    	 for(int i = 0; i< activeThrd.size();i++){
+    		 if(activeThrd.get(i).user.username.equals(username)){
+    			 activethrd.remove(i);
+    			 return;
+    		 }
+    	 }
      }
 }

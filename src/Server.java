@@ -73,7 +73,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 						//        }
 						//        No longer need this, the port number will always be 21910
 
-        Server server = new Server("Host", 21910);
+        Server server = new Server("Akbars-Macbook-Pro.local", 21910);
     }
 				        /*
 				         * As soon as we establish a new socket, we move on to putting the system in a constant search for

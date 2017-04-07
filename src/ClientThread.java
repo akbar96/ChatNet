@@ -48,16 +48,21 @@ public class ClientThread extends Thread {
 	     
 	    
 	         while ((inputLine = in.readLine()) != null) { 		//ensures that there some input to compute
-	         	
+        		 
+	        	 System.out.println("Incoming Request -> " + inputLine);
+
 	        	 if (inputLine.toUpperCase().equals("JOIN")){				 //Checks if the client wishes to join
 	         		
 	        		 if(joined == false){ 								//Makes sure that the same client is not joining twice
 	        			out.println("Enter your name: "); 		//Asks client for an id to address them with. This id must be numerical
 	        			String name = in.readLine();
-	        			out.println("Your id is: " + user.username);//ID is confirmed to the player
-		         		
-	        			joined = true;									//Once the client has joins, the boolean joined is set to true so that they cannot join again
-	         		
+		         		if(!(server.nameExists(name))){
+		         			user.username = name;
+		         			joined = true;						//Once the client has joins, the boolean joined is set to true so that they cannot join again
+		         			out.println("Welcome to ChatNet "+ user.username);
+		         		}else{
+		         			out.println("The name you chose is already in use. Please choose another one");
+		         		}
 	        		 }else{
 	         			
 	        			 out.println("You have already joined"); 		//If the player tries to join without leaving, they are reminded that they are already connected

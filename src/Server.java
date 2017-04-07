@@ -58,7 +58,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 	String serverName;
 	int portNumber;
 	public ArrayList<User> clients = new ArrayList<User>();
-	public ArrayList<ServerThread> activeThrd = new ArrayList<ServerThread>(); 
+	public ArrayList<ClientThread> activeThrd = new ArrayList<ClientThread>(); 
 						//static String[] playersList = new String[1000]; //Initializes the array to the capacity of a 1000 elements
 						//static int i=0;	//Populates the array
 						//static String people; //Concatenated string which is filled up with the contents of the array
@@ -95,7 +95,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
             while(true){ 										//infinite loop which always checks for connections
             	
                 clientSocket = serverSocket.accept();
-            	ServerThread newThread = new ServerThread(clientSocket, this);
+            	ClientThread newThread = new ClientThread(clientSocket, this);
                 newThread.start();
                 activeThrd.add(newThread);
             	
@@ -114,7 +114,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
     	 return null;
      }
      
-     public ServerThread getServerThreadByUserName(String name){
+     public ClientThread getServerThreadByUserName(String name){
     	 for(int i = 0; i<activeThrd.size(); i++){
     		 if(activeThrd.get(i).user.username.equals(name)){
     			 return activeThrd.get(i);
@@ -126,7 +126,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
      public boolean nameExists(String username){
     	 for(int i=0;i<activeThrd.size();i++){
     		 if(activeThrd.get(i).user.username.equals(username)){
-    			 return true:
+    			 return true;
     		 }
     	 }
     	 return false;

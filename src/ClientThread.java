@@ -70,7 +70,7 @@ public class ClientThread extends Thread {
 	         		
 	         		for(int a = 0; a < server.activeThrd.size(); a++){
 	         			
-	         			if(server.activeThrd.get(a).joined == TRUE){				//Avoids null entries from being printed
+	         			if(server.activeThrd.get(a).joined == true){				//Avoids null entries from being printed
 	         				out.println(server.activeThrd.get(a).user.username);
 	         				numThreads++;
 	         			}

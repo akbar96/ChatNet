@@ -44,7 +44,12 @@ public class ClientThread extends Thread {
 		     
 		     String inputLine;							//Contains the messages received by the user to the server.
 			//System.out.println("Connected to a new Client");
-
+		     out.println("Welcome to the ChatNet.\n Here you may Chat with other clients currently connected.\n");
+		     out.println("The commands available are: \nJoin - Lists you in the system directory and makes you visible to others"
+		     		+ "\nList - Lists all the active users currently listed in the directory. \nLeave - This command will close connections"
+		     		+ "with the server and you will have to start the application in order to join the program.\nChat: This command lets you connect"
+		     		+ " with another client currently in the directory. This disconnects you from the server.");
+		     out.println("Start by joining the system using the command 'Join'");
 		    while(true){ 
 		     
 				//System.out.println("Connected to a new Client");
@@ -79,7 +84,7 @@ public class ClientThread extends Thread {
 		         		for(int a = 0; a < server.activeThrd.size(); a++){
 		         			
 		         			if(server.activeThrd.get(a).joined == true){				//Avoids null entries from being printed
-		         				out.println((a+1) + ". " + server.activeThrd.get(a).user.username);
+		         				out.println((a+1) + ". " + server.activeThrd.get(a).user.username +"	"+ server.activeThrd.get(a).user.ipAddress);
 		         				numThreads++;
 		         			}
 		         		}
@@ -124,10 +129,11 @@ public class ClientThread extends Thread {
 		         		}else if(server.nameExists(requestedUser) && server.getClientThreadByUserName(requestedUser).joined){
 		         			out.println("CHAT START");
 		         			out.println("Setting up a connection with "+requestedUser);
+		         			out.println("To end the chat, type 'CHAT LEAVE' in the console");
 		         			server.getClientThreadByUserName(requestedUser).sendMessage("CHAT CHAT");
 		         			server.getClientThreadByUserName(requestedUser).sendMessage(user.hostname);
 		         			server.getClientThreadByUserName(requestedUser).sendMessage(Integer.toString(user.portNumber));
-		         			server.getClientThreadByUserName(requestedUser).sendMessage("Chat has been initiated by "+user.username);
+		         			server.getClientThreadByUserName(requestedUser).sendMessage("Chat has been initiated by "+user.username + "To end the chat, type 'CHAT LEAVE' in the console");
 		         			
 		         			joined = false;
 		         			server.getClientThreadByUserName(requestedUser).joined = false;

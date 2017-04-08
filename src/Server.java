@@ -63,7 +63,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 						//static int i=0;	//Populates the array
 						//static String people; //Concatenated string which is filled up with the contents of the array
    ServerSocket serverSocket;
-   Socket clientSocket;
+   Socket connection;
    
 	public static void main(String[] args) throws IOException {
 
@@ -73,7 +73,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 						//        }
 						//        No longer need this, the port number will always be 21910
 
-        Server server = new Server("Akbars-Macbook-Pro.local", 21910);
+        Server server = new Server("Host", 21910);
     }
 				        /*
 				         * As soon as we establish a new socket, we move on to putting the system in a constant search for
@@ -91,11 +91,11 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
 				            													// one point of time only 100 people can wait
 				            													// at the port
 
-            System.out.println("Waiting for someone to connect... \n");
+            System.out.println("Waiting for someone to connect...");
             while(true){ 										//infinite loop which always checks for connections
             	
-                clientSocket = serverSocket.accept();
-            	ClientThread newThread = new ClientThread(clientSocket, this);
+                connection = serverSocket.accept();
+            	ClientThread newThread = new ClientThread(connection, this);
                 newThread.start();
                 activeThrd.add(newThread);
             	
@@ -114,7 +114,7 @@ public class Server{		//Extends JFrame has been removed since it is Not to be us
     	 return null;
      }
      
-     public ClientThread getServerThreadByUserName(String name){
+     public ClientThread getClientThreadByUserName(String name){
     	 for(int i = 0; i<activeThrd.size(); i++){
     		 if(activeThrd.get(i).user.username.equals(name)){
     			 return activeThrd.get(i);

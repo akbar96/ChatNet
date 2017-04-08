@@ -36,16 +36,7 @@ public class Client {
 			
 		}
 	}
-	public void connectToServer(){
-		try{
-			connection = new Socket(serverName, serverPort);
-			pListener = new PListener(connection, this, false);
-			pListener.start();
-			System.out.println("You are now connected to the Server");
-		}catch (Exception e){
-			System.out.println("You were unable to connect to the server. Some error occured");
-		}
-	}
+	
 	public void setUpServer(){
 		try{
 			csSocket = new ServerSocket(0);
@@ -54,6 +45,16 @@ public class Client {
 			csPort = csSocket.getLocalPort();
 		} catch (Exception e){
 			
+		}
+	}
+	public void connectToServer(){
+		try{
+			connection = new Socket(serverName, serverPort);
+			pListener = new PListener(connection, this, false);
+			pListener.start();
+			System.out.println("You are now connected to the Server");
+		}catch (Exception e){
+			System.out.println("You were unable to connect to the server. Some error occured");
 		}
 	}
 	public void acceptPeerConnection(){
@@ -83,6 +84,6 @@ public class Client {
 		System.out.println(message);
 	}
 	public void sendMessage(String message){
-		System.out.println(message);
+		pListener.sendMessage(message);
 	}
 }

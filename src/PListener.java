@@ -3,8 +3,8 @@ import java.net.*;
 
 public class PListener extends Thread{
 	Client client;
-	BufferedReader reader;
-	PrintWriter writer;
+	BufferedReader in;
+	PrintWriter out;
 	Socket socket;
 	boolean talking;
 	public PListener(Socket socket, Client client, Boolean talking){
@@ -14,23 +14,23 @@ public class PListener extends Thread{
 	}
 	public void run(){
 		try{
-			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			writer = new PrintWriter(socket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out = new PrintWriter(socket.getOutputStream(), true);
 			if(talking != true){
-				writer.println(client.clientIP);
-				writer.println(client.clientName);
-				writer.println(client.csPort);
+				out.println(client.clientIP);
+				out.println(client.clientName);
+				out.println(client.csPort);
 			}
 			String incoming;
 			while(true){
-				incoming = reader.readLine();
-				if(incoming.equals("ChatNet.Chat")){
-					String pHN = reader.readLine();
-					int pPN = Integer.parseInt(reader.readLine());
+				incoming = in.readLine();
+				if(incoming.equals("CHAT CHAT")){
+					String pHN = in.readLine();
+					int pPN = Integer.parseInt(in.readLine());
 					client.connectToPeer(pHN, pPN);
-				}else if(incoming.equals("ChatNet.Start")){
+				}else if(incoming.equals("CHAT START")){
 					client.acceptPeerConnection();
-				}else if(incoming.equals("ChatNet.Leave")){
+				}else if(incoming.equals("CHAT LEAVE")){
 					client.printConsole("Chat ended");
 					client.printConsole("Reconnecting to the server now...");
 					client.connectToServer();
@@ -43,7 +43,7 @@ public class PListener extends Thread{
 		}
 	}
 	public void sendMessage(String message){
-		writer.println(message);
+		out.println(message);
 	}
 
 }

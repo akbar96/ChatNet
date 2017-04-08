@@ -12,7 +12,7 @@ public class CListener extends Thread{
 			try{
 				String message;
 				message = in.readLine();
-				if(message.equals("ChatNet.Leave")){
+				if(message.equals("CHAT LEAVE")){
 					client.sendMessage(message);
 					client.printConsole("Chat ended");
 					client.printConsole("Reconnecting to the server now...");
@@ -21,7 +21,7 @@ public class CListener extends Thread{
 					client.sendMessage(message);
 				}
 			}catch (Exception exception){
-				client.printConsole("An error has occured");
+				client.printConsole("Console error has occured");
 			}
 		}
 	}
